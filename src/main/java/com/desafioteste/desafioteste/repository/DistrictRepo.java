@@ -17,7 +17,7 @@ public class DistrictRepo implements Repo<District> {
     @Override
     public District save(Object obj) {
 
-        District district = DistrictDto.dtoToClass((DistrictDto) obj);
+        District district = (District) obj;
 
         long id = 0;
 

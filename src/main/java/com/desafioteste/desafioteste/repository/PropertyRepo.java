@@ -17,8 +17,7 @@ public class PropertyRepo implements Repo<Property>{
     @Override
     public Property save(Object obj) {
 
-        PropertyDto dto = (PropertyDto) obj;
-        Property property = new Property(dto);
+        Property property = (Property) obj;
 
         long id = 0;
 
