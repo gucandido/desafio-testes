@@ -19,7 +19,7 @@ public class DistrictController {
 
     @PostMapping
     public ResponseEntity<?> postCreateDistrict(@RequestBody @Valid DistrictDto dto){
-        return new ResponseEntity<>(districtService.saveNewDistrict(dto), HttpStatus.CREATED);
+        return new ResponseEntity<>(districtService.saveNewDistrict(DistrictDto.dtoToClass(dto)), HttpStatus.CREATED);
     }
 
     @GetMapping("/{id}")

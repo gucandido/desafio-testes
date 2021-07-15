@@ -20,8 +20,8 @@ public class DistrictService {
         this.repository = repo;
     }
 
-    public DistrictDto saveNewDistrict(DistrictDto dto){
-        return DistrictDto.classToDto(repository.save(dto));
+    public DistrictDto saveNewDistrict(District district){
+        return DistrictDto.classToDto(repository.save(district));
     }
 
     public DistrictDto getDistrict(long id){
