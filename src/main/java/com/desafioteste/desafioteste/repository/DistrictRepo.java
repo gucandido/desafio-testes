@@ -1,5 +1,6 @@
 package com.desafioteste.desafioteste.repository;
 
+import com.desafioteste.desafioteste.dto.DistrictDto;
 import com.desafioteste.desafioteste.entity.District;
 import org.springframework.stereotype.Repository;
 
@@ -16,18 +17,23 @@ public class DistrictRepo implements Repo<District> {
     @Override
     public District save(Object obj) {
 
-        District district = (District) obj;
+        District district = DistrictDto.dtoToClass((DistrictDto) obj);
 
         long id = 0;
 
         if(!districts.isEmpty())
-            id = districts.stream().max((Comparator.comparingLong(District::getId))).get().getId();
+            id = districts.stream().max((Comparator.comparingLong(District::getId))).get().getId()+1;
 
         district.setId(id);
         districts.add(district);
 
         return district;
 
+    }
+
+    @Override
+    public List<District> findAll() {
+        return districts;
     }
 
     @Override
@@ -49,4 +55,10 @@ public class DistrictRepo implements Repo<District> {
         else
             throw new RuntimeException("nao achei");
     }
+
+    @Override
+    public boolean delete(long id) {
+        return districts.removeIf(x->x.getId() == id);
+    }
+
 }

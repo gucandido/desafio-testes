@@ -1,5 +1,7 @@
 package com.desafioteste.desafioteste.entity;
 
+import com.desafioteste.desafioteste.dto.DistrictDto;
+
 import java.math.BigDecimal;
 
 public class District {
@@ -8,9 +10,9 @@ public class District {
     private String district_name;
     private BigDecimal value_district_m2;
 
-    public District(String district_name, BigDecimal value_district_m2) {
-        this.district_name = district_name;
-        this.value_district_m2 = value_district_m2;
+    public District(DistrictDto dist) {
+        this.district_name = dist.getDistrict_name();
+        this.value_district_m2 = dist.getValue_district_m2();
     }
 
     public long getId() {

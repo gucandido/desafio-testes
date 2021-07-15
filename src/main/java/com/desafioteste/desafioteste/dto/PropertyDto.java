@@ -22,7 +22,7 @@ public class PropertyDto {
 
     @NotNull(message = "O valor do metro quadrado no bairro não pode estar vazio")
     @Digits(integer = 11, fraction = 2, message = "O comprimento não pode exceder 13 dígitos, sendo 11 inteiros e 2 decimais")
-    @PositiveOrZero(message = "O valor não pode ser negativo")
+    @DecimalMin(value = "0.0", inclusive = true, message = "O valor não pode ser negativo")
     private BigDecimal value_district_m2;
 
     @Valid

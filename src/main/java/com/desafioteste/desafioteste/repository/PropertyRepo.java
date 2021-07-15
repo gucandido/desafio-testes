@@ -23,12 +23,17 @@ public class PropertyRepo implements Repo<Property>{
         long id = 0;
 
         if(!properties.isEmpty())
-            id = properties.stream().max((Comparator.comparingLong(Property::getId))).get().getId();
+            id = properties.stream().max((Comparator.comparingLong(Property::getId))).get().getId()+1;
 
         property.setId(id);
         properties.add(property);
 
         return property;
+    }
+
+    @Override
+    public List<Property> findAll() {
+        return properties;
     }
 
     @Override
@@ -53,5 +58,10 @@ public class PropertyRepo implements Repo<Property>{
         else
             throw new RuntimeException("nao achei");
 
+    }
+
+    @Override
+    public boolean delete(long id) {
+        return properties.removeIf(x->x.getId() == id);
     }
 }
