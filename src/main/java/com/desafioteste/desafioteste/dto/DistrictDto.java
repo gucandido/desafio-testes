@@ -21,11 +21,6 @@ public class DistrictDto {
     public DistrictDto() {
     }
 
-    /*public DistrictDto(String district_name, BigDecimal value_district_m2) {
-        this.district_name = district_name;
-        this.value_district_m2 = value_district_m2;
-    }*/
-
     public DistrictDto(@NotNull(message = "O nome do bairro não pode estar vazio.") @NotEmpty(message = "O nome do bairro não pode estar vazio.") @NotBlank(message = "O nome do bairro não pode estar em branco.") @Size(max = 45, message = "O comprimento do bairro não pode exceder 45 caracteres") String district_name, @NotNull(message = "O valor do metro quadrado no bairro não pode estar vazio") @Digits(integer = 11, fraction = 2, message = "O comprimento não pode exceder 13 dígitos, sendo 11 inteiros e 2 decimais") @DecimalMin(value = "0.0", inclusive = true, message = "O valor não pode ser negativo") BigDecimal value_district_m2) {
         this.district_name = district_name;
         this.value_district_m2 = value_district_m2;

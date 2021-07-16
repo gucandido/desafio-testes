@@ -1,13 +1,11 @@
 package com.desafioteste.desafioteste.service;
 
-import com.desafioteste.desafioteste.dto.DistrictDto;
 import com.desafioteste.desafioteste.dto.GenericResponseDto;
 import com.desafioteste.desafioteste.entity.District;
 import com.desafioteste.desafioteste.repository.DistrictRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -28,7 +26,7 @@ public class DistrictService {
         return repository.findById(id);
     }
 
-    public District getDistrict(String districtName){
+    public List<District> getDistrict(String districtName){
         return repository.findByName(districtName);
     }
 
@@ -41,7 +39,7 @@ public class DistrictService {
     public GenericResponseDto deleteDistrict(long id){
 
         if(!repository.delete(id))
-            throw new RuntimeException("bairro não encontrado");
+            throw new RuntimeException("Bairro não encontrado");
 
         return new GenericResponseDto("Bairro deletado com sucesso");
 

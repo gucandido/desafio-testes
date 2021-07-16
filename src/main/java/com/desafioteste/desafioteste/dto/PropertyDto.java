@@ -1,7 +1,12 @@
 package com.desafioteste.desafioteste.dto;
 
+import com.desafioteste.desafioteste.entity.Property;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.validation.Valid;
 import javax.validation.constraints.*;
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 public class PropertyDto {
@@ -17,9 +22,28 @@ public class PropertyDto {
     private long district_id;
 
     @Valid
-    private List<RoomDto> rooms;
+    private List<RoomDto> rooms = new ArrayList<>();
+
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    private BigDecimal prop_value;
 
     public PropertyDto() {
+    }
+
+    public PropertyDto(Property prop) {
+        this.prop_name = prop.getProp_name();
+        this.district_id = prop.getDistrict_id();
+
+        prop.getRooms().forEach(x->this.rooms.add(RoomDto.classToDto(x)));
+
+        this.prop_value = prop.getProp_value();
+
+    }
+
+    public PropertyDto(String prop_name, long district_id, List<RoomDto> rooms) {
+        this.prop_name = prop_name;
+        this.district_id = district_id;
+        this.rooms = rooms;
     }
 
     public String getProp_name() {
@@ -44,5 +68,21 @@ public class PropertyDto {
 
     public void setRooms(List<RoomDto> rooms) {
         this.rooms = rooms;
+    }
+
+    public BigDecimal getProp_value() {
+        return prop_value;
+    }
+
+    public void setProp_value(BigDecimal prop_value) {
+        this.prop_value = prop_value;
+    }
+
+    public static Property dtoToClass(PropertyDto dto){
+        return new Property(dto);
+    }
+
+    public static PropertyDto classToDto(Property prop){
+        return new PropertyDto(prop);
     }
 }

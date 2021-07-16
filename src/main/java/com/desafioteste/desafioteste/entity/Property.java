@@ -14,12 +14,21 @@ public class Property {
     private String prop_name;
     private long district_id;
     private List<Room> rooms = new ArrayList<>();
+    private BigDecimal prop_value;
 
     public Property(PropertyDto dto) {
         this.prop_name = dto.getProp_name();
         this.district_id = dto.getDistrict_id();
 
         dto.getRooms().forEach(x->this.rooms.add(RoomDto.dtoToClass(x)));
+    }
+
+    public BigDecimal getProp_value() {
+        return prop_value;
+    }
+
+    public void setProp_value(BigDecimal prop_value) {
+        this.prop_value = prop_value;
     }
 
     public long getId() {
@@ -54,16 +63,24 @@ public class Property {
         this.rooms = rooms;
     }
 
+    public double calcTotalArea(){
+        return this.rooms.stream().mapToDouble(Room::calcArea).sum();
+    }
+
+    public Room getBiggestRoom(){
+        return this.rooms.stream().reduce(((room, room2) -> room.calcArea() > room2.calcArea()? room:room2)).orElse(null);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Property property = (Property) o;
-        return id == property.id;
+        return district_id == property.district_id && Objects.equals(prop_name, property.prop_name) && Objects.equals(rooms, property.rooms);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(prop_name, district_id, rooms);
     }
 }
