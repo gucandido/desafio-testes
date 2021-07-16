@@ -2,6 +2,8 @@ package com.desafioteste.desafioteste.entity;
 
 import com.desafioteste.desafioteste.dto.RoomDto;
 
+import java.util.Objects;
+
 public class Room {
 
     private String room_name;
@@ -44,4 +46,16 @@ public class Room {
         return this.room_length * this.room_width;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Room room = (Room) o;
+        return Double.compare(room.room_width, room_width) == 0 && Double.compare(room.room_length, room_length) == 0 && Objects.equals(room_name, room.room_name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(room_name, room_width, room_length);
+    }
 }

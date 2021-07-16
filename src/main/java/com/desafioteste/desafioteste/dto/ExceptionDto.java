@@ -10,6 +10,10 @@ public class ExceptionDto {
         this.message = message;
     }
 
+    public ExceptionDto(String message) {
+        this.message = message;
+    }
+
     public String getField() {
         return field;
     }

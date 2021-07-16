@@ -4,6 +4,9 @@ import com.desafioteste.desafioteste.dto.GenericResponseDto;
 import com.desafioteste.desafioteste.entity.District;
 import com.desafioteste.desafioteste.entity.Property;
 import com.desafioteste.desafioteste.entity.Room;
+import com.desafioteste.desafioteste.exception.disctrict.DistrictNotFoundException;
+import com.desafioteste.desafioteste.exception.property.PropertyCreateException;
+import com.desafioteste.desafioteste.exception.property.PropertyNotFoundException;
 import com.desafioteste.desafioteste.repository.DistrictRepo;
 import com.desafioteste.desafioteste.repository.PropertyRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,8 +34,9 @@ public class PropertyService {
             prop.setProp_value(calcPropertyValue(prop));
 
             return repository.save(prop);
+
         }else {
-            throw new RuntimeException("não é possivel cadastrar imovel em bairro inexistente");
+            throw new PropertyCreateException("O bairro desta propriedade não está cadastrado");
         }
     }
 
@@ -46,14 +50,14 @@ public class PropertyService {
         return repository.findById(id);
     }
 
-    public Property getProperty(String districtName){
+    public List<Property> getProperty(String districtName){
         return repository.findByName(districtName);
     }
 
     public GenericResponseDto deleteDistrict(long id){
 
         if(!repository.delete(id))
-            throw new RuntimeException("Propriedade não encontrada");
+            throw new PropertyNotFoundException("Propriedade não encontrada");
 
         return new GenericResponseDto("Propriedade deletada com sucesso");
 
@@ -97,7 +101,7 @@ public class PropertyService {
         try {
             districtRepo.findById(districtId);
             return true;
-        }catch(RuntimeException e){
+        }catch(DistrictNotFoundException e){
             return false;
         }
 

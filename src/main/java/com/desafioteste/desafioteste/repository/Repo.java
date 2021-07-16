@@ -7,7 +7,8 @@ public interface Repo<T> {
     public T save(Object obj);
     public List<T> findAll();
     public T findById(long id);
-    public T findByName(String name);
+    public List<T> findByName(String name);
     public boolean delete(long id);
+    public boolean exists(Object obj);
 
 }

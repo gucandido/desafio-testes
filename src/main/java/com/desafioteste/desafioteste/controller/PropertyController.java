@@ -28,17 +28,15 @@ public class PropertyController {
     @GetMapping
     public ResponseEntity<?> getDistricts(@RequestParam(required = false, defaultValue = "") String name){
 
+        List<PropertyDto> properties = new ArrayList<>();
+
         if(name.isEmpty()) {
-
-            List<PropertyDto> properties = new ArrayList<>();
-
             propertyService.getAllProperties().forEach(x->properties.add(PropertyDto.classToDto(x)));
-
-            return new ResponseEntity<>(properties, HttpStatus.ACCEPTED);
-
         }else {
-            return new ResponseEntity<>(PropertyDto.classToDto(propertyService.getProperty(name)), HttpStatus.ACCEPTED);
+            propertyService.getProperty(name).forEach(x->properties.add(PropertyDto.classToDto(x)));
         }
+
+        return new ResponseEntity<>(properties, HttpStatus.ACCEPTED);
 
     }
 
@@ -52,22 +50,22 @@ public class PropertyController {
         return new ResponseEntity<>(propertyService.deleteDistrict(id), HttpStatus.ACCEPTED);
     }
 
-    @GetMapping("/value/{id}")
+    @GetMapping("/{id}/value")
     public ResponseEntity<?> getPropertyValue(@PathVariable long id){
         return new ResponseEntity<>(propertyService.getPropertyValue(id), HttpStatus.ACCEPTED);
     }
 
-    @GetMapping("/biggest-room/{id}")
+    @GetMapping("/{id}/room/biggest")
     public ResponseEntity<?> getPropertyBiggestRoom(@PathVariable long id){
         return new ResponseEntity<>(RoomDto.classToDto(propertyService.getBiggestPropertyRoom(id)), HttpStatus.ACCEPTED);
     }
 
-    @GetMapping("/property-area/{id}")
+    @GetMapping("/{id}/area")
     public ResponseEntity<?> getPropertyTotalArea(@PathVariable long id){
         return new ResponseEntity<>(propertyService.CalcPropertyArea(id), HttpStatus.ACCEPTED);
     }
 
-    @GetMapping("/rooms-area/{id}")
+    @GetMapping("/{id}/room/area")
     public ResponseEntity<?> getRoomsArea(@PathVariable long id){
 
         List<RoomDto> list = new ArrayList<>();
