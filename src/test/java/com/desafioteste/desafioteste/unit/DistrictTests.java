@@ -45,15 +45,6 @@ public class DistrictTests {
 
     }
 
-    @Test
-    public void should_throwException_when_savingDuplicatedDistrict(){
 
-        Mockito.when(mockedRepo.exists(dist)).thenReturn(true);
-
-        Mockito.when(mockedRepo.save(dist)).thenCallRealMethod();
-
-        assertThrows(DistrictAlreadyExistsException.class, ()-> mockedService.saveNewDistrict(dist));
-
-    }
 
 }
