@@ -3,11 +3,13 @@ package com.desafioteste.desafioteste.service;
 import com.desafioteste.desafioteste.dto.GenericResponseDto;
 import com.desafioteste.desafioteste.entity.District;
 import com.desafioteste.desafioteste.entity.Property;
+import com.desafioteste.desafioteste.entity.Room;
 import com.desafioteste.desafioteste.repository.DistrictRepo;
 import com.desafioteste.desafioteste.repository.PropertyRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Service
@@ -24,10 +26,14 @@ public class PropertyService {
     }
 
     public Property createNewProperty(Property prop){
-        if(districtExists(prop.getDistrict_id()))
+        if(districtExists(prop.getDistrict_id())) {
+
+            prop.setProp_value(calcPropertyValue(prop));
+
             return repository.save(prop);
-        else
-            throw new RuntimeException("não é possivel cadastrar imovel em bairro inexistente inexistente");
+        }else {
+            throw new RuntimeException("não é possivel cadastrar imovel em bairro inexistente");
+        }
     }
 
     public List<Property> getAllProperties(){
@@ -53,6 +59,39 @@ public class PropertyService {
 
     }
 
+    public BigDecimal getPropertyValue(long idProperty){
+
+        Property prop = repository.findById(idProperty);
+
+        return prop.getProp_value();
+
+    }
+
+    public double CalcPropertyArea(long idProperty){
+
+        Property prop = repository.findById(idProperty);
+
+        return prop.calcTotalArea();
+
+
+    }
+
+    public Room getBiggestPropertyRoom(long idProperty){
+
+        Property prop = repository.findById(idProperty);
+
+        return prop.getBiggestRoom();
+
+    }
+
+    public List<Room> getRooms(long idProperty){
+
+        Property prop = repository.findById(idProperty);
+
+        return prop.getRooms();
+
+    }
+
     private boolean districtExists(long districtId){
 
         try {
@@ -61,6 +100,14 @@ public class PropertyService {
         }catch(RuntimeException e){
             return false;
         }
+
+    }
+
+    public BigDecimal calcPropertyValue(Property prop){
+
+        District dist = districtRepo.findById(prop.getDistrict_id());
+
+        return dist.getValue_district_m2().multiply(BigDecimal.valueOf(prop.calcTotalArea()));
 
     }
 

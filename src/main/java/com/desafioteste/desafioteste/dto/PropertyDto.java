@@ -1,9 +1,11 @@
 package com.desafioteste.desafioteste.dto;
 
 import com.desafioteste.desafioteste.entity.Property;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.validation.Valid;
 import javax.validation.constraints.*;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,6 +24,9 @@ public class PropertyDto {
     @Valid
     private List<RoomDto> rooms = new ArrayList<>();
 
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    private BigDecimal prop_value;
+
     public PropertyDto() {
     }
 
@@ -30,6 +35,8 @@ public class PropertyDto {
         this.district_id = prop.getDistrict_id();
 
         prop.getRooms().forEach(x->this.rooms.add(RoomDto.classToDto(x)));
+
+        this.prop_value = prop.getProp_value();
 
     }
 
@@ -61,6 +68,14 @@ public class PropertyDto {
 
     public void setRooms(List<RoomDto> rooms) {
         this.rooms = rooms;
+    }
+
+    public BigDecimal getProp_value() {
+        return prop_value;
+    }
+
+    public void setProp_value(BigDecimal prop_value) {
+        this.prop_value = prop_value;
     }
 
     public static Property dtoToClass(PropertyDto dto){
