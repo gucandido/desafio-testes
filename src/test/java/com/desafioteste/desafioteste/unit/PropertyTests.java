@@ -17,7 +17,6 @@ import org.mockito.Mockito;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -68,9 +67,7 @@ public class PropertyTests {
     public void should_returnTheBiggestRoom(){
 
         Mockito.when(repository.findById(0)).thenReturn(prop);
-
         Room biggest = service.getBiggestPropertyRoom(0);
-
         Mockito.verify(repository).findById(0);
 
         assertEquals(biggest, prop.getRooms().get(1));
@@ -78,14 +75,38 @@ public class PropertyTests {
     }
 
     //US0003
-    public void should_returnTheAreaForEachRoom(){
+    @Test
+    public void should_calculateRoomArea(){
 
+        Mockito.when(repository.findById(0)).thenReturn(prop);
+        List<Room> rooms = service.getRooms(0);
+        Mockito.verify(repository).findById(0);
 
+        // respostas da area de cada comodo
+        List<Double> results = new ArrayList<>();
+        results.add(6.0); // quarto
+        results.add(12.0); // cozinha
+        results.add(1.5); // guarita do snipper
+
+        List<Double> areas = new ArrayList<>();
+
+        // cada comodo tem em si o metodo que calcula sua area
+        rooms.forEach(x->areas.add(x.calcArea()));
+
+        assertArrayEquals(areas.toArray(),results.toArray());
 
     }
 
     //US0004
-    public void should_calculateRoomArea(){
+    @Test
+    public void should_calculatePropertyValue(){
+
+        Mockito.when(districtRepo.findById(0)).thenReturn(dist);
+        BigDecimal propValue = service.calcPropertyValue(prop);
+        Mockito.verify(districtRepo).findById(0);
+
+        // 19.5 * 525.0 = 10237.50
+        assertEquals(propValue, new BigDecimal("10237.50"));
 
     }
 
