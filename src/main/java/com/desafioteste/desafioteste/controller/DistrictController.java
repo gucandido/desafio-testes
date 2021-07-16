@@ -19,7 +19,7 @@ public class DistrictController {
 
     @PostMapping
     public ResponseEntity<?> postCreateDistrict(@RequestBody @Valid DistrictDto dto){
-        return new ResponseEntity<>(districtService.saveNewDistrict(DistrictDto.dtoToClass(dto)), HttpStatus.CREATED);
+        return new ResponseEntity<>(DistrictDto.classToDto(districtService.saveNewDistrict(DistrictDto.dtoToClass(dto))), HttpStatus.CREATED);
     }
 
     @GetMapping("/{id}")
@@ -42,9 +42,5 @@ public class DistrictController {
         return new ResponseEntity<>(districtService.deleteDistrict(id), HttpStatus.ACCEPTED);
     }
 
-    @DeleteMapping
-    public ResponseEntity<?> deleteDistrict(@RequestHeader("district-name") String name){
-        return new ResponseEntity<>(districtService.deleteDistrict(name), HttpStatus.ACCEPTED);
-    }
 
 }
