@@ -1,7 +1,7 @@
 package com.desafioteste.desafioteste.controller;
 
-import com.desafioteste.desafioteste.dto.DistrictDto;
 import com.desafioteste.desafioteste.dto.PropertyDto;
+import com.desafioteste.desafioteste.dto.RoomDto;
 import com.desafioteste.desafioteste.service.PropertyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -51,5 +51,27 @@ public class PropertyController {
     public ResponseEntity<?> deleteDistrict(@PathVariable long id){
         return new ResponseEntity<>(propertyService.deleteDistrict(id), HttpStatus.ACCEPTED);
     }
+
+    @GetMapping("/value/{id}")
+    public ResponseEntity<?> getPropertyValue(@PathVariable long id){
+        return new ResponseEntity<>(propertyService.CalcPropertyValue(id), HttpStatus.ACCEPTED);
+    }
+
+    @GetMapping("/biggest-room/{id}")
+    public ResponseEntity<?> getPropertyBiggestRoom(@PathVariable long id){
+        return new ResponseEntity<>(RoomDto.classToDto(propertyService.getBiggestPropertyRoom(id)), HttpStatus.ACCEPTED);
+    }
+
+    @GetMapping("/property-area/{id}")
+    public ResponseEntity<?> getPropertyTotalArea(@PathVariable long id){
+        return new ResponseEntity<>(propertyService.CalcPropertyArea(id), HttpStatus.ACCEPTED);
+    }
+
+    @GetMapping("/rooms-area/{id}")
+    public ResponseEntity<?> getRoomsArea(@PathVariable long id){
+        return new ResponseEntity<>(propertyService.getRoomsArea(id), HttpStatus.ACCEPTED);
+    }
+
+
 
 }

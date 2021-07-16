@@ -37,4 +37,9 @@ public class Room {
     public void setRoom_length(double room_length) {
         this.room_length = room_length;
     }
+
+    public double calcArea(){
+        return this.room_length * this.room_width;
+    }
+
 }

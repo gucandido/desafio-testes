@@ -19,8 +19,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class PropertyTests {
 
@@ -77,7 +76,15 @@ public class PropertyTests {
 
 
     //US0001
+    @Test
     public void should_calculatePropertyTotalArea(){
+
+        Mockito.when(repository.findById(0)).thenReturn(prop);
+
+        Property p = repository.findById(0);
+        Mockito.verify(repository).findById(0);
+
+        assertEquals(p.calcTotalArea(),19.5);
 
     }
 

@@ -66,4 +66,13 @@ public class Property {
     public int hashCode() {
         return Objects.hash(id);
     }
+
+    public double calcTotalArea(){
+        return this.rooms.stream().mapToDouble(Room::calcArea).sum();
+    }
+
+    public Room getBiggestRoom(){
+        return this.rooms.stream().reduce(((room, room2) -> room.calcArea() > room2.calcArea()? room:room2)).orElse(null);
+    }
+
 }

@@ -3,11 +3,14 @@ package com.desafioteste.desafioteste.service;
 import com.desafioteste.desafioteste.dto.GenericResponseDto;
 import com.desafioteste.desafioteste.entity.District;
 import com.desafioteste.desafioteste.entity.Property;
+import com.desafioteste.desafioteste.entity.Room;
 import com.desafioteste.desafioteste.repository.DistrictRepo;
 import com.desafioteste.desafioteste.repository.PropertyRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -53,6 +56,46 @@ public class PropertyService {
 
     }
 
+    public BigDecimal CalcPropertyValue(long idProperty){
+
+        Property prop = repository.findById(idProperty);
+
+        District dist = districtRepo.findById(prop.getDistrict_id());
+
+        return dist.getValue_district_m2().multiply(BigDecimal.valueOf(prop.calcTotalArea()));
+
+
+    }
+
+    public double CalcPropertyArea(long idProperty){
+
+        Property prop = repository.findById(idProperty);
+
+        return prop.calcTotalArea();
+
+
+    }
+
+    public Room getBiggestPropertyRoom(long idProperty){
+
+        Property prop = repository.findById(idProperty);
+
+        return prop.getBiggestRoom();
+
+    }
+
+    public List<Double> getRoomsArea(long idProperty){
+
+        Property prop = repository.findById(idProperty);
+
+        List<Double> areas = new ArrayList<>();
+
+        prop.getRooms().forEach(x->areas.add(x.calcArea()));
+
+        return areas;
+
+    }
+
     private boolean districtExists(long districtId){
 
         try {
@@ -63,5 +106,7 @@ public class PropertyService {
         }
 
     }
+
+
 
 }

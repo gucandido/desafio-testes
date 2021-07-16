@@ -66,4 +66,5 @@ public class RoomDto {
     public static RoomDto classToDto(Room room){
         return new RoomDto(room);
     }
+
 }
