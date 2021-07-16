@@ -9,6 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequestMapping("/district")
@@ -24,16 +26,23 @@ public class DistrictController {
 
     @GetMapping("/{id}")
     public ResponseEntity<?> getDistrictById(@PathVariable long id){
-        return new ResponseEntity<>(districtService.getDistrict(id), HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(DistrictDto.classToDto(districtService.getDistrict(id)), HttpStatus.ACCEPTED);
     }
 
     @GetMapping
     public ResponseEntity<?> getDistricts(@RequestParam(required = false, defaultValue = "") String name){
 
-        if(name.isEmpty())
-            return new ResponseEntity<>(districtService.getAllDistricts(), HttpStatus.ACCEPTED);
-        else
-            return new ResponseEntity<>(districtService.getDistrict(name), HttpStatus.ACCEPTED);
+        if(name.isEmpty()) {
+
+            List<DistrictDto> districts = new ArrayList<>();
+
+            districtService.getAllDistricts().forEach(x->districts.add(DistrictDto.classToDto(x)));
+
+            return new ResponseEntity<>( districts, HttpStatus.ACCEPTED);
+
+        }else {
+            return new ResponseEntity<>(DistrictDto.classToDto(districtService.getDistrict(name)), HttpStatus.ACCEPTED);
+        }
 
     }
 
