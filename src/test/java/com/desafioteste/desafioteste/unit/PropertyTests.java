@@ -6,6 +6,7 @@ import com.desafioteste.desafioteste.dto.PropertyDto;
 import com.desafioteste.desafioteste.dto.RoomDto;
 import com.desafioteste.desafioteste.entity.District;
 import com.desafioteste.desafioteste.entity.Property;
+import com.desafioteste.desafioteste.entity.Room;
 import com.desafioteste.desafioteste.repository.DistrictRepo;
 import com.desafioteste.desafioteste.repository.PropertyRepo;
 import com.desafioteste.desafioteste.service.DistrictService;
@@ -49,52 +50,37 @@ public class PropertyTests {
 
     }
 
-    @Test
-    public void should_createNewProperty_when_districtExists(){
-        distService.saveNewDistrict(dist);
-
-        service.createNewProperty(prop);
-
-        Mockito.when(repository.findAll()).thenReturn(Arrays.asList(prop));
-        Mockito.verify(repository).save(prop);
-
-        List<Property> props = repository.findAll();
-        assertTrue(props.contains(prop));
-
-    }
-
-    @Test
-    public void shouldNot_createNewProperty_when_districtNotExists(){
-        service.createNewProperty(prop);
-
-        Mockito.doThrow(new RuntimeException()).when(repository).save(prop);
-        Mockito.verify(repository).save(prop);
-
-        List<Property> props = repository.findAll();
-        assertFalse(props.contains(prop));
-    }
-
 
     //US0001
     @Test
     public void should_calculatePropertyTotalArea(){
 
         Mockito.when(repository.findById(0)).thenReturn(prop);
-
-        Property p = repository.findById(0);
+        double propArea = service.CalcPropertyArea(0);
         Mockito.verify(repository).findById(0);
 
-        assertEquals(p.calcTotalArea(),19.5);
+        assertEquals(propArea,19.5);
 
     }
 
     //US0002
-    public void should_calculatePropertyTotalValue(){
+    @Test
+    public void should_returnTheBiggestRoom(){
+
+        Mockito.when(repository.findById(0)).thenReturn(prop);
+
+        Room biggest = service.getBiggestPropertyRoom(0);
+
+        Mockito.verify(repository).findById(0);
+
+        assertEquals(biggest, prop.getRooms().get(1));
 
     }
 
     //US0003
-    public void should_returnTheBiggestRoom(){
+    public void should_returnTheAreaForEachRoom(){
+
+
 
     }
 

@@ -54,7 +54,7 @@ public class PropertyController {
 
     @GetMapping("/value/{id}")
     public ResponseEntity<?> getPropertyValue(@PathVariable long id){
-        return new ResponseEntity<>(PropertyDto.classToDto(propertyService.CalcPropertyValue(id)), HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(propertyService.getPropertyValue(id), HttpStatus.ACCEPTED);
     }
 
     @GetMapping("/biggest-room/{id}")
