@@ -12,14 +12,12 @@ public class Property {
 
     private long id;
     private String prop_name;
-    private String prop_district;
-    private BigDecimal value_district_m2;
+    private long district_id;
     private List<Room> rooms = new ArrayList<>();
 
     public Property(PropertyDto dto) {
         this.prop_name = dto.getProp_name();
-        this.prop_district = dto.getProp_district();
-        this.value_district_m2 = dto.getValue_district_m2();
+        this.district_id = dto.getDistrict_id();
 
         dto.getRooms().forEach(x->this.rooms.add(RoomDto.dtoToClass(x)));
     }
@@ -40,20 +38,12 @@ public class Property {
         this.prop_name = prop_name;
     }
 
-    public String getProp_district() {
-        return prop_district;
+    public long getDistrict_id() {
+        return district_id;
     }
 
-    public void setProp_district(String prop_district) {
-        this.prop_district = prop_district;
-    }
-
-    public BigDecimal getValue_district_m2() {
-        return value_district_m2;
-    }
-
-    public void setValue_district_m2(BigDecimal value_district_m2) {
-        this.value_district_m2 = value_district_m2;
+    public void setDistrict_id(long district_id) {
+        this.district_id = district_id;
     }
 
     public List<Room> getRooms() {

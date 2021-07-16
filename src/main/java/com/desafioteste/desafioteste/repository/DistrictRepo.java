@@ -1,6 +1,5 @@
 package com.desafioteste.desafioteste.repository;
 
-import com.desafioteste.desafioteste.dto.DistrictDto;
 import com.desafioteste.desafioteste.entity.District;
 import org.springframework.stereotype.Repository;
 
@@ -8,6 +7,13 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+
+
+/*
+*
+* não permitir que o sistema salve bairro repetido
+*
+* */
 
 @Repository
 public class DistrictRepo implements Repo<District> {

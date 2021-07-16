@@ -1,7 +1,6 @@
 package com.desafioteste.desafioteste.entity;
 
 import com.desafioteste.desafioteste.dto.DistrictDto;
-
 import java.math.BigDecimal;
 
 public class District {

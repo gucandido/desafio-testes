@@ -20,25 +20,21 @@ public class DistrictService {
         this.repository = repo;
     }
 
-    public DistrictDto saveNewDistrict(District district){
-        return DistrictDto.classToDto(repository.save(district));
+    public District saveNewDistrict(District district){
+        return repository.save(district);
     }
 
-    public DistrictDto getDistrict(long id){
-        return DistrictDto.classToDto(repository.findById(id));
+    public District getDistrict(long id){
+        return repository.findById(id);
     }
 
-    public DistrictDto getDistrict(String districtName){
-        return DistrictDto.classToDto(repository.findByName(districtName));
+    public District getDistrict(String districtName){
+        return repository.findByName(districtName);
     }
 
-    public List<DistrictDto> getAllDistricts(){
+    public List<District> getAllDistricts(){
 
-        List<DistrictDto> list = new ArrayList<>();
-
-        repository.findAll().forEach(x->list.add(DistrictDto.classToDto(x)));
-
-        return list;
+        return repository.findAll();
 
     }
 
@@ -48,17 +44,6 @@ public class DistrictService {
             throw new RuntimeException("bairro não encontrado");
 
         return new GenericResponseDto("Bairro deletado com sucesso");
-
-    }
-
-    public GenericResponseDto deleteDistrict(String districtName){
-
-        long id = repository.findByName(districtName).getId();
-
-        if(!repository.delete(id))
-            throw new RuntimeException("bairro não encontrado");
-
-        return new GenericResponseDto("Bairro(s) deletado(s) com sucesso");
 
     }
 

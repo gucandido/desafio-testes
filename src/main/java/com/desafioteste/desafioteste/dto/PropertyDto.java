@@ -2,7 +2,6 @@ package com.desafioteste.desafioteste.dto;
 
 import javax.validation.Valid;
 import javax.validation.constraints.*;
-import java.math.BigDecimal;
 import java.util.List;
 
 public class PropertyDto {
@@ -14,16 +13,8 @@ public class PropertyDto {
     @Pattern(regexp = "^[A-Z]\\w+", message = "O nome da propriedade deve começar com uma letra maiúscula.")
     private String prop_name;
 
-    @NotNull(message = "O nome do bairro não pode estar vazio.")
-    @NotEmpty(message = "O nome do bairro não pode estar vazio.")
-    @NotBlank(message = "O nome do bairro não pode estar em branco.")
-    @Size(max = 45, message = "O comprimento do bairro não pode exceder 45 caracteres")
-    private String prop_district;
-
-    @NotNull(message = "O valor do metro quadrado no bairro não pode estar vazio")
-    @Digits(integer = 11, fraction = 2, message = "O comprimento não pode exceder 13 dígitos, sendo 11 inteiros e 2 decimais")
-    @DecimalMin(value = "0.0", inclusive = true, message = "O valor não pode ser negativo")
-    private BigDecimal value_district_m2;
+    @NotNull
+    private long district_id;
 
     @Valid
     private List<RoomDto> rooms;
@@ -39,20 +30,12 @@ public class PropertyDto {
         this.prop_name = prop_name;
     }
 
-    public String getProp_district() {
-        return prop_district;
+    public long getDistrict_id() {
+        return district_id;
     }
 
-    public void setProp_district(String prop_district) {
-        this.prop_district = prop_district;
-    }
-
-    public BigDecimal getValue_district_m2() {
-        return value_district_m2;
-    }
-
-    public void setValue_district_m2(BigDecimal value_district_m2) {
-        this.value_district_m2 = value_district_m2;
+    public void setDistrict_id(long district_id) {
+        this.district_id = district_id;
     }
 
     public List<RoomDto> getRooms() {
