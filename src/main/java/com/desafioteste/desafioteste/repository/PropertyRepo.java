@@ -1,13 +1,16 @@
 package com.desafioteste.desafioteste.repository;
 
-import com.desafioteste.desafioteste.dto.PropertyDto;
 import com.desafioteste.desafioteste.entity.Property;
+import com.desafioteste.desafioteste.exception.disctrict.DistrictNotFoundException;
+import com.desafioteste.desafioteste.exception.property.PropertyAlreadyExists;
+import com.desafioteste.desafioteste.exception.property.PropertyNotFoundException;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Repository
 public class PropertyRepo implements Repo<Property>{
@@ -17,17 +20,21 @@ public class PropertyRepo implements Repo<Property>{
     @Override
     public Property save(Object obj) {
 
-        Property property = (Property) obj;
+        if(!exists(obj)) {
+            Property property = (Property) obj;
 
-        long id = 0;
+            long id = 0;
 
-        if(!properties.isEmpty())
-            id = properties.stream().max((Comparator.comparingLong(Property::getId))).get().getId()+1;
+            if (!properties.isEmpty())
+                id = properties.stream().max((Comparator.comparingLong(Property::getId))).get().getId() + 1;
 
-        property.setId(id);
-        properties.add(property);
+            property.setId(id);
+            properties.add(property);
 
-        return property;
+            return property;
+        }else{
+            throw new PropertyAlreadyExists("Esta Propriedade já existe");
+        }
     }
 
     @Override
@@ -43,19 +50,19 @@ public class PropertyRepo implements Repo<Property>{
         if(property.isPresent())
             return property.get();
         else
-            throw new RuntimeException("nao achei");
+            throw new PropertyNotFoundException("Propriedade não encontrada");
 
     }
 
     @Override
-    public Property findByName(String name) {
+    public List<Property> findByName(String name) {
 
-        Optional<Property> property = properties.stream().filter(x->x.getProp_name().equals(name)).findAny();
+        List<Property> propertyList = properties.stream().filter(x->x.getProp_name().equals(name)).collect(Collectors.toList());
 
-        if(property.isPresent())
-            return property.get();
+        if(propertyList.size() > 0)
+            return propertyList;
         else
-            throw new RuntimeException("nao achei");
+            throw new PropertyNotFoundException("Propriedade não encontrada");
 
     }
 
@@ -63,4 +70,13 @@ public class PropertyRepo implements Repo<Property>{
     public boolean delete(long id) {
         return properties.removeIf(x->x.getId() == id);
     }
+
+    @Override
+    public boolean exists(Object obj) {
+
+        Property prop = (Property) obj;
+
+        return properties.contains(prop);
+    }
+
 }

@@ -63,19 +63,6 @@ public class Property {
         this.rooms = rooms;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Property property = (Property) o;
-        return id == property.id;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
-    }
-
     public double calcTotalArea(){
         return this.rooms.stream().mapToDouble(Room::calcArea).sum();
     }
@@ -84,4 +71,16 @@ public class Property {
         return this.rooms.stream().reduce(((room, room2) -> room.calcArea() > room2.calcArea()? room:room2)).orElse(null);
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Property property = (Property) o;
+        return district_id == property.district_id && Objects.equals(prop_name, property.prop_name) && Objects.equals(rooms, property.rooms);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(prop_name, district_id, rooms);
+    }
 }

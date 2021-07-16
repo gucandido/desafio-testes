@@ -32,18 +32,15 @@ public class DistrictController {
     @GetMapping
     public ResponseEntity<?> getDistricts(@RequestParam(required = false, defaultValue = "") String name){
 
+        List<DistrictDto> districts = new ArrayList<>();
+
         if(name.isEmpty()) {
-
-            List<DistrictDto> districts = new ArrayList<>();
-
             districtService.getAllDistricts().forEach(x->districts.add(DistrictDto.classToDto(x)));
-
-            return new ResponseEntity<>( districts, HttpStatus.ACCEPTED);
-
         }else {
-            return new ResponseEntity<>(DistrictDto.classToDto(districtService.getDistrict(name)), HttpStatus.ACCEPTED);
+            districtService.getDistrict(name).forEach(x->districts.add(DistrictDto.classToDto(x)));
         }
 
+        return new ResponseEntity<>( districts, HttpStatus.ACCEPTED);
     }
 
     @DeleteMapping("/{id}")

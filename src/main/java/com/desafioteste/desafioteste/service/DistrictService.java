@@ -26,7 +26,7 @@ public class DistrictService {
         return repository.findById(id);
     }
 
-    public District getDistrict(String districtName){
+    public List<District> getDistrict(String districtName){
         return repository.findByName(districtName);
     }
 
@@ -39,7 +39,7 @@ public class DistrictService {
     public GenericResponseDto deleteDistrict(long id){
 
         if(!repository.delete(id))
-            throw new RuntimeException("bairro não encontrado");
+            throw new RuntimeException("Bairro não encontrado");
 
         return new GenericResponseDto("Bairro deletado com sucesso");
 
