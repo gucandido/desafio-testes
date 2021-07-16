@@ -124,7 +124,7 @@ public class DistrictTests {
     @Test
     public void shouldNot_saveNewDistrictWithNegativeValue(){
 
-        dist.setValue_district_m2(new BigDecimal(-1.0));
+        dist.setValue_district_m2(new BigDecimal("-1.0"));
 
         Mockito.doThrow(new RuntimeException()).when(repository).save(dist);
 
