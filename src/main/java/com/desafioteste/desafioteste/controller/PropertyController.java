@@ -54,7 +54,7 @@ public class PropertyController {
 
     @GetMapping("/value/{id}")
     public ResponseEntity<?> getPropertyValue(@PathVariable long id){
-        return new ResponseEntity<>(propertyService.CalcPropertyValue(id), HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(PropertyDto.classToDto(propertyService.CalcPropertyValue(id)), HttpStatus.ACCEPTED);
     }
 
     @GetMapping("/biggest-room/{id}")
@@ -69,7 +69,12 @@ public class PropertyController {
 
     @GetMapping("/rooms-area/{id}")
     public ResponseEntity<?> getRoomsArea(@PathVariable long id){
-        return new ResponseEntity<>(propertyService.getRoomsArea(id), HttpStatus.ACCEPTED);
+
+        List<RoomDto> list = new ArrayList<>();
+
+        propertyService.getRooms(id).forEach(x->list.add(RoomDto.classToDto(x)));
+
+        return new ResponseEntity<>(list, HttpStatus.ACCEPTED);
     }
 
 

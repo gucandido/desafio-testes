@@ -14,12 +14,21 @@ public class Property {
     private String prop_name;
     private long district_id;
     private List<Room> rooms = new ArrayList<>();
+    private BigDecimal prop_value;
 
     public Property(PropertyDto dto) {
         this.prop_name = dto.getProp_name();
         this.district_id = dto.getDistrict_id();
 
         dto.getRooms().forEach(x->this.rooms.add(RoomDto.dtoToClass(x)));
+    }
+
+    public BigDecimal getProp_value() {
+        return prop_value;
+    }
+
+    public void setProp_value(BigDecimal prop_value) {
+        this.prop_value = prop_value;
     }
 
     public long getId() {

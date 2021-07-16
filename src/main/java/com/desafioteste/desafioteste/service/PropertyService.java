@@ -1,6 +1,7 @@
 package com.desafioteste.desafioteste.service;
 
 import com.desafioteste.desafioteste.dto.GenericResponseDto;
+import com.desafioteste.desafioteste.dto.PropertyDto;
 import com.desafioteste.desafioteste.entity.District;
 import com.desafioteste.desafioteste.entity.Property;
 import com.desafioteste.desafioteste.entity.Room;
@@ -56,14 +57,15 @@ public class PropertyService {
 
     }
 
-    public BigDecimal CalcPropertyValue(long idProperty){
+    public Property CalcPropertyValue(long idProperty){
 
         Property prop = repository.findById(idProperty);
 
         District dist = districtRepo.findById(prop.getDistrict_id());
 
-        return dist.getValue_district_m2().multiply(BigDecimal.valueOf(prop.calcTotalArea()));
+        prop.setProp_value(dist.getValue_district_m2().multiply(BigDecimal.valueOf(prop.calcTotalArea())));
 
+        return prop;
 
     }
 
@@ -84,15 +86,11 @@ public class PropertyService {
 
     }
 
-    public List<Double> getRoomsArea(long idProperty){
+    public List<Room> getRooms(long idProperty){
 
         Property prop = repository.findById(idProperty);
 
-        List<Double> areas = new ArrayList<>();
-
-        prop.getRooms().forEach(x->areas.add(x.calcArea()));
-
-        return areas;
+        return prop.getRooms();
 
     }
 

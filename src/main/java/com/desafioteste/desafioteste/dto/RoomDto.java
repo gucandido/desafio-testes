@@ -1,6 +1,7 @@
 package com.desafioteste.desafioteste.dto;
 
 import com.desafioteste.desafioteste.entity.Room;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.validation.constraints.*;
 
@@ -23,6 +24,9 @@ public class RoomDto {
     @Max(value = 33, message = "O comprimento máximo permitido por cômodo é de 33 metros")
     private Double room_length;
 
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    private Double room_area;
+
     public RoomDto(String room_name, Double room_width, Double room_length) {
         this.room_name = room_name;
         this.room_width = room_width;
@@ -33,6 +37,7 @@ public class RoomDto {
         this.room_name = room.getRoom_name();
         this.room_width = room.getRoom_width();
         this.room_length = room.getRoom_length();
+        this.room_area = room.calcArea();
     }
 
     public String getRoom_name() {
@@ -65,6 +70,14 @@ public class RoomDto {
 
     public static RoomDto classToDto(Room room){
         return new RoomDto(room);
+    }
+
+    public Double getRoom_area() {
+        return room_area;
+    }
+
+    public void setRoom_area(Double room_area) {
+        this.room_area = room_area;
     }
 
 }

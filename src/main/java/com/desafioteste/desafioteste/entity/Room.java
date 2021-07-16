@@ -7,11 +7,13 @@ public class Room {
     private String room_name;
     private double room_width;
     private double room_length;
+    private double room_area;
 
     public Room(RoomDto dto) {
         this.room_name = dto.getRoom_name();
         this.room_width = dto.getRoom_width();
         this.room_length = dto.getRoom_length();
+        this.room_area = this.calcArea();
     }
 
     public String getRoom_name() {
