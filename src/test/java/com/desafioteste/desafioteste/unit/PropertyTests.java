@@ -50,7 +50,6 @@ public class PropertyTests {
     }
 
 
-    //US0001
     @Test
     public void should_calculatePropertyTotalArea(){
 
@@ -62,7 +61,7 @@ public class PropertyTests {
 
     }
 
-    //US0002
+
     @Test
     public void should_returnTheBiggestRoom(){
 
@@ -74,7 +73,7 @@ public class PropertyTests {
 
     }
 
-    //US0003
+
     @Test
     public void should_calculateRoomArea(){
 
@@ -97,7 +96,6 @@ public class PropertyTests {
 
     }
 
-    //US0004
     @Test
     public void should_calculatePropertyValue(){
 
