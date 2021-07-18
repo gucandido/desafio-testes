@@ -9,7 +9,6 @@ import com.desafioteste.desafioteste.entity.Property;
 import com.desafioteste.desafioteste.entity.Room;
 import com.desafioteste.desafioteste.repository.DistrictRepo;
 import com.desafioteste.desafioteste.repository.PropertyRepo;
-import com.desafioteste.desafioteste.service.DistrictService;
 import com.desafioteste.desafioteste.service.PropertyService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -26,7 +25,6 @@ public class PropertyTests {
     private PropertyRepo repository;
     private DistrictRepo districtRepo;
     private PropertyService service;
-    private DistrictService distService;
     private District dist;
     private Property prop;
 
@@ -36,7 +34,6 @@ public class PropertyTests {
         repository = Mockito.mock(PropertyRepo.class);
         districtRepo = Mockito.mock(DistrictRepo.class);
         service = new PropertyService(repository, districtRepo);
-        distService = new DistrictService(districtRepo);
 
         dist = new District(new DistrictDto("bairro teste", new BigDecimal("525.0")));
 

@@ -40,7 +40,7 @@ public class DistrictController {
             districtService.getDistrict(name).forEach(x->districts.add(DistrictDto.classToDto(x)));
         }
 
-        return new ResponseEntity<>( districts, HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(districts, HttpStatus.ACCEPTED);
     }
 
     @DeleteMapping("/{id}")
