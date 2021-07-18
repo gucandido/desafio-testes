@@ -2,7 +2,6 @@ package com.desafioteste.desafioteste.unit;
 
 import com.desafioteste.desafioteste.dto.DistrictDto;
 import com.desafioteste.desafioteste.entity.District;
-import com.desafioteste.desafioteste.exception.disctrict.DistrictAlreadyExistsException;
 import com.desafioteste.desafioteste.exception.disctrict.DistrictNotFoundException;
 import com.desafioteste.desafioteste.repository.DistrictRepo;
 import com.desafioteste.desafioteste.service.DistrictService;
