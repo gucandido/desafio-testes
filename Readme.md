@@ -333,9 +333,6 @@ Após o cadastro dos bairros e propriedades é possível utilizar os endpoints q
 </pre>
 
 #### 9. Retorno do maior cômodo na propriedade - US-0003
-
-http://localhost:8080/property/0/room/biggest
-
 <p><code>Method: GET</code><br><code>Sign: http://localhost:8080/property/{id}/room/biggest</code></p>
 <pre>
 <code><span style="font-size: medium">Response (Status: 202 - Accepted):</span></code>
