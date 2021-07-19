@@ -1,8 +1,7 @@
 package com.desafioteste.desafioteste.repository;
 
 import com.desafioteste.desafioteste.entity.Property;
-import com.desafioteste.desafioteste.exception.disctrict.DistrictNotFoundException;
-import com.desafioteste.desafioteste.exception.property.PropertyAlreadyExists;
+import com.desafioteste.desafioteste.exception.property.PropertyAlreadyExistsException;
 import com.desafioteste.desafioteste.exception.property.PropertyNotFoundException;
 import org.springframework.stereotype.Repository;
 
@@ -33,7 +32,7 @@ public class PropertyRepo implements Repo<Property>{
 
             return property;
         }else{
-            throw new PropertyAlreadyExists("Esta Propriedade já existe");
+            throw new PropertyAlreadyExistsException("Esta Propriedade já existe");
         }
     }
 

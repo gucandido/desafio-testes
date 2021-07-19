@@ -1,5 +1,6 @@
 package com.desafioteste.desafioteste.controller;
 
+import com.desafioteste.desafioteste.dto.GenericResponseDto;
 import com.desafioteste.desafioteste.dto.PropertyDto;
 import com.desafioteste.desafioteste.dto.RoomDto;
 import com.desafioteste.desafioteste.service.PropertyService;
@@ -52,7 +53,7 @@ public class PropertyController {
 
     @GetMapping("/{id}/value")
     public ResponseEntity<?> getPropertyValue(@PathVariable long id){
-        return new ResponseEntity<>(propertyService.getPropertyValue(id), HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(new GenericResponseDto("O valor da propriedade é: "+propertyService.getPropertyValue(id)), HttpStatus.ACCEPTED);
     }
 
     @GetMapping("/{id}/room/biggest")
@@ -62,7 +63,7 @@ public class PropertyController {
 
     @GetMapping("/{id}/area")
     public ResponseEntity<?> getPropertyTotalArea(@PathVariable long id){
-        return new ResponseEntity<>(propertyService.CalcPropertyArea(id), HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(new GenericResponseDto("A área total da propriedade é: "+propertyService.CalcPropertyArea(id)), HttpStatus.ACCEPTED);
     }
 
     @GetMapping("/{id}/room/area")
@@ -74,7 +75,5 @@ public class PropertyController {
 
         return new ResponseEntity<>(list, HttpStatus.ACCEPTED);
     }
-
-
 
 }

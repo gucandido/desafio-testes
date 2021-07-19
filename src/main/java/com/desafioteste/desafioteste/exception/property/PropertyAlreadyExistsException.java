@@ -1,16 +1,16 @@
 package com.desafioteste.desafioteste.exception.property;
 
-public class PropertyAlreadyExists extends RuntimeException{
+public class PropertyAlreadyExistsException extends RuntimeException{
 
     /**
      *
      */
     private static final long serialVersionUID = 5L;
 
-    public PropertyAlreadyExists(String mensagem) {
+    public PropertyAlreadyExistsException(String mensagem) {
         super(mensagem);
     }
-    public PropertyAlreadyExists(Exception e) {
+    public PropertyAlreadyExistsException(Exception e) {
         super(e);
     }
 

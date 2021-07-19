@@ -3,7 +3,7 @@ package com.desafioteste.desafioteste.exception;
 import com.desafioteste.desafioteste.dto.ExceptionDto;
 import com.desafioteste.desafioteste.exception.disctrict.DistrictAlreadyExistsException;
 import com.desafioteste.desafioteste.exception.disctrict.DistrictNotFoundException;
-import com.desafioteste.desafioteste.exception.property.PropertyAlreadyExists;
+import com.desafioteste.desafioteste.exception.property.PropertyAlreadyExistsException;
 import com.desafioteste.desafioteste.exception.property.PropertyCreateException;
 import com.desafioteste.desafioteste.exception.property.PropertyNotFoundException;
 import org.springframework.http.ResponseEntity;
@@ -37,8 +37,8 @@ public class CustomExceptionHandler {
         return ResponseEntity.badRequest().body(ex);
     }
 
-    @ExceptionHandler(PropertyAlreadyExists.class)
-    public ResponseEntity<ExceptionDto> defaultHandler(PropertyAlreadyExists e){
+    @ExceptionHandler(PropertyAlreadyExistsException.class)
+    public ResponseEntity<ExceptionDto> defaultHandler(PropertyAlreadyExistsException e){
         ExceptionDto ex = new ExceptionDto(e.getMessage());
         return ResponseEntity.badRequest().body(ex);
     }
