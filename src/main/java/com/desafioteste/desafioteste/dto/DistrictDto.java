@@ -1,11 +1,15 @@
 package com.desafioteste.desafioteste.dto;
 
 import com.desafioteste.desafioteste.entity.District;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.validation.constraints.*;
 import java.math.BigDecimal;
 
 public class DistrictDto {
+
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    private long id;
 
     @NotNull(message = "O nome do bairro não pode estar vazio.")
     @NotEmpty(message = "O nome do bairro não pode estar vazio.")
@@ -55,4 +59,11 @@ public class DistrictDto {
         return new District(dist);
     }
 
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 }

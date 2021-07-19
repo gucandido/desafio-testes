@@ -11,6 +11,9 @@ import java.util.List;
 
 public class PropertyDto {
 
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    private long id;
+
     @NotNull(message = "O nome da propriedade não pode estar vazio.")
     @NotEmpty(message = "O nome da propriedade não pode estar vazio.")
     @NotBlank(message = "O nome da propriedade não pode estar em branco")
@@ -84,5 +87,13 @@ public class PropertyDto {
 
     public static PropertyDto classToDto(Property prop){
         return new PropertyDto(prop);
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 }
